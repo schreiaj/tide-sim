@@ -26,7 +26,51 @@ Or with uv:
 uv pip install git+https://github.com/schreiaj/tide-sim.git
 ```
 
-### Development Installation
+
+## Usage
+
+The package provides a `SimulationNode` class that can be used to simulate robot behavior:
+
+It can be used like any other node in your tide project
+
+```
+- type: tide_sim.SimulationNode
+    params:
+      robot_id: "simbot"
+      sim_rate: 60
+      update_rate: 20
+```
+### Configuration Options
+
+- `robot_id`: Identifier for the robot (default: "simbot")
+- `headless`: Run simulation without GUI (default: False)
+- `sim_rate`: Physics simulation rate in Hz (default: 240)
+- `update_rate`: Rate at which pose updates will be published
+- `urdf_path`: Path to the robot's URDF file (default: "assets/simulation/robot.urdf")
+
+### Joint Control
+
+The simulation node subscribes to joint state commands and applies them to the simulated robot:
+
+It uses the joint names from the URDF file. If positions are specified it will use a position controller with velocity and effort constraints. If no position but a velocity it will use a velocity controller with effort constraints. If no position or velocity it will use a torque controller. 
+
+It is criticl that all arrays are the same length. This may be enforced in the future but for now it will just cause runtime errors. 
+
+```python
+from tide_sim import JointState
+
+# Create a joint state command
+joint_state = JointState(
+    name=["joint1", "joint2"],
+    position=[0.0, 1.57],  # in radians
+    velocity=[],   # in rad/s
+    effort=[]      # in N⋅m
+)
+
+# The simulation node will automatically apply these joint states
+```
+
+### Development 
 
 For development, clone the repository and install in editable mode:
 
@@ -43,53 +87,6 @@ pip install pre-commit
 pre-commit install
 ```
 
-## Usage
-
-The package provides a `SimulationNode` class that can be used to simulate robot behavior:
-
-```python
-from tide_sim import SimulationNode
-
-# Create a simulation node with custom configuration
-config = {
-    "robot_id": "my_robot",
-    "headless": False,  # Set to True for headless simulation
-    "sim_rate": 240,    # Physics simulation rate
-    "update_rate": 1,   # State update rate
-    "urdf_path": "path/to/your/robot.urdf"
-}
-
-sim_node = SimulationNode(config=config)
-sim_node.start()
-```
-
-### Configuration Options
-
-- `robot_id`: Identifier for the robot (default: "simbot")
-- `headless`: Run simulation without GUI (default: False)
-- `sim_rate`: Physics simulation rate in Hz (default: 240)
-- `update_rate`: State update rate in Hz (default: 1)
-- `urdf_path`: Path to the robot's URDF file (default: "assets/simulation/robot.urdf")
-
-### Joint Control
-
-The simulation node subscribes to joint state commands and applies them to the simulated robot:
-
-```python
-from tide_sim import JointState
-
-# Create a joint state command
-joint_state = JointState(
-    name=["joint1", "joint2"],
-    position=[0.0, 1.57],  # in radians
-    velocity=[0.0, 0.0],   # in rad/s
-    effort=[0.0, 0.0]      # in N⋅m
-)
-
-# The simulation node will automatically apply these joint states
-```
-
-## Development
 
 The project uses several development tools:
 - `black` for code formatting
