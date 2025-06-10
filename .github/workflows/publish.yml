@@ -8,11 +8,8 @@ jobs:
   pypi-publish:
     name: Publish release to PyPI
     runs-on: ubuntu-latest
-    environment:
-      name: pypi
-      url: https://pypi.org/p/tide-sim
     permissions:
-      id-token: write
+      id-token: write  # Required for trusted publishing
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
