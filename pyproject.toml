@@ -7,7 +7,7 @@ name = "tide-sim"
 version = "0.1.0"
 description = "A package for adding a simulation environment to a tide robot"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.12"
 license = { text = "MIT" }
 authors = [
     { name = "Schreiber", email = "schreiaj@gmail.com" }
