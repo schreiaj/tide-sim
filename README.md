@@ -12,21 +12,35 @@ A Python package for adding a simulation environment to a tide robot using PyBul
 
 ## Installation
 
-This project uses `uv` for dependency management. To get started:
+### From GitHub
 
-1. Install `uv` if you haven't already:
+You can install the package directly from GitHub using pip:
+
 ```bash
-pip install uv
+pip install git+https://github.com/schreiaj/tide-sim.git
 ```
 
-2. Create a virtual environment and install dependencies:
-```bash
-uv venv
-source .venv/bin/activate  # On Unix/macOS
-# or
-.venv\Scripts\activate  # On Windows
+Or with uv:
 
-uv pip install -e ".[dev]"
+```bash
+uv pip install git+https://github.com/schreiaj/tide-sim.git
+```
+
+### Development Installation
+
+For development, clone the repository and install in editable mode:
+
+```bash
+# Clone the repository
+git clone https://github.com/schreiaj/tide-sim.git
+cd tide-sim
+
+# Create virtual environment and install dependencies
+make install
+
+# Install pre-commit hooks (optional but recommended)
+pip install pre-commit
+pre-commit install
 ```
 
 ## Usage
@@ -86,11 +100,10 @@ The project uses several development tools:
 
 To run the development tools:
 ```bash
-black .
-isort .
-ruff check .
-mypy .
-pytest
+make test     # Run tests
+make lint     # Run linters
+make format   # Format code
+make clean    # Clean up build artifacts
 ```
 
 ## Dependencies
