@@ -1,78 +1,557 @@
-<?xml version="1.0"?>
-<robot name="test_robot">
-    <link name="base_link">
-        <visual>
-            <geometry>
-                <box size="0.2 0.2 0.1"/>
-            </geometry>
-            <material name="blue">
-                <color rgba="0 0 0.8 1"/>
-            </material>
-        </visual>
-        <collision>
-            <geometry>
-                <box size="0.2 0.2 0.1"/>
-            </geometry>
-        </collision>
-        <inertial>
-            <mass value="1.0"/>
-            <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1"/>
-        </inertial>
-    </link>
-
-    <link name="link1">
-        <visual>
-            <geometry>
-                <box size="0.1 0.1 0.2"/>
-            </geometry>
-            <material name="red">
-                <color rgba="0.8 0 0 1"/>
-            </material>
-        </visual>
-        <collision>
-            <geometry>
-                <box size="0.1 0.1 0.2"/>
-            </geometry>
-        </collision>
-        <inertial>
-            <mass value="0.5"/>
-            <inertia ixx="0.05" ixy="0" ixz="0" iyy="0.05" iyz="0" izz="0.05"/>
-        </inertial>
-    </link>
-
-    <link name="link2">
-        <visual>
-            <geometry>
-                <box size="0.1 0.1 0.2"/>
-            </geometry>
-            <material name="green">
-                <color rgba="0 0.8 0 1"/>
-            </material>
-        </visual>
-        <collision>
-            <geometry>
-                <box size="0.1 0.1 0.2"/>
-            </geometry>
-        </collision>
-        <inertial>
-            <mass value="0.5"/>
-            <inertia ixx="0.05" ixy="0" ixz="0" iyy="0.05" iyz="0" izz="0.05"/>
-        </inertial>
-    </link>
-
-    <joint name="joint1" type="revolute">
-        <parent link="base_link"/>
-        <child link="link1"/>
-        <origin xyz="0.15 0 0.05" rpy="0 0 0"/>
-        <axis xyz="0 0 1"/>
-        <limit lower="-3.14" upper="3.14" effort="10" velocity="1"/>
-    </joint>
-
-    <joint name="joint2" type="revolute">
-        <parent link="link1"/>
-        <child link="link2"/>
-        <origin xyz="0.1 0 0.1" rpy="0 0 0"/>
-        <axis xyz="0 0 1"/>
-        <limit lower="-3.14" upper="3.14" effort="10" velocity="1"/>
-    </joint>
-</robot> 
+<?xml version="1.0" ?>
+<!-- Generated using onshape-to-robot -->
+<!-- Onshape document_id: bc6f1fc88228e92d1fcf112d -->
+<robot name="rival-sim">
+  <!-- Link laser_cut_top_plate -->
+  <link name="laser_cut_top_plate">
+    <inertial>
+      <origin xyz="-6.67913e-07 -2.50208e-08 -0.0207071" rpy="0 0 0"/>
+      <mass value="0.631979"/>
+      <inertia ixx="0.00520447" ixy="4.39897e-08" ixz="-8.65366e-09" iyy="0.00520447" iyz="-1.65977e-11" izz="0.00988391"/>
+    </inertial>
+    <!-- Part laser_cut_bottom_plate -->
+    <visual>
+      <origin xyz="2.08167e-17 6.93889e-18 -0.046175" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/laser_cut_bottom_plate.stl"/>
+      </geometry>
+      <material name="laser_cut_bottom_plate_material">
+        <color rgba="0.372549 0.654902 0.239216 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="2.08167e-17 6.93889e-18 -0.046175" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/laser_cut_bottom_plate.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part laser_cut_top_plate -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/laser_cut_top_plate.stl"/>
+      </geometry>
+      <material name="laser_cut_top_plate_material">
+        <color rgba="0.372549 0.654902 0.239216 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/laser_cut_top_plate.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part 2106_4008_0430 -->
+    <visual>
+      <origin xyz="0.0227767 -0.0896262 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+      <material name="2106_4008_0430_material">
+        <color rgba="0.615686 0.811765 0.929412 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0227767 -0.0896262 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part 2106_4008_0430_2 -->
+    <visual>
+      <origin xyz="0.0639313 0.10356 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+      <material name="2106_4008_0430_2_material">
+        <color rgba="0.615686 0.811765 0.929412 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0639313 0.10356 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part 2106_4008_0430_3 -->
+    <visual>
+      <origin xyz="0.0654235 0.0879181 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+      <material name="2106_4008_0430_3_material">
+        <color rgba="0.615686 0.811765 0.929412 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0654235 0.0879181 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part 2106_4008_0430_4 -->
+    <visual>
+      <origin xyz="0.0227767 0.10356 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+      <material name="2106_4008_0430_4_material">
+        <color rgba="0.615686 0.811765 0.929412 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0227767 0.10356 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part 2106_4008_0430_5 -->
+    <visual>
+      <origin xyz="0.0654235 -0.0739846 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+      <material name="2106_4008_0430_5_material">
+        <color rgba="0.615686 0.811765 0.929412 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0654235 -0.0739846 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part 2106_4008_0430_6 -->
+    <visual>
+      <origin xyz="0.124305 -0.0151027 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+      <material name="2106_4008_0430_6_material">
+        <color rgba="0.615686 0.811765 0.929412 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.124305 -0.0151027 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part 2106_4008_0430_7 -->
+    <visual>
+      <origin xyz="-0.0532389 0.0275441 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+      <material name="2106_4008_0430_7_material">
+        <color rgba="0.615686 0.811765 0.929412 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0532389 0.0275441 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part 2106_4008_0430_8 -->
+    <visual>
+      <origin xyz="0.139947 -0.0136106 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+      <material name="2106_4008_0430_8_material">
+        <color rgba="0.615686 0.811765 0.929412 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.139947 -0.0136106 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part 2106_4008_0430_9 -->
+    <visual>
+      <origin xyz="-0.0375974 0.0290362 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+      <material name="2106_4008_0430_9_material">
+        <color rgba="0.615686 0.811765 0.929412 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0375974 0.0290362 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part 2106_4008_0430_10 -->
+    <visual>
+      <origin xyz="-0.0532389 -0.0136106 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+      <material name="2106_4008_0430_10_material">
+        <color rgba="0.615686 0.811765 0.929412 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0532389 -0.0136106 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part 2106_4008_0430_11 -->
+    <visual>
+      <origin xyz="0.124305 0.0290362 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+      <material name="2106_4008_0430_11_material">
+        <color rgba="0.615686 0.811765 0.929412 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.124305 0.0290362 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part 2106_4008_0430_12 -->
+    <visual>
+      <origin xyz="0.0639313 -0.0896262 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+      <material name="2106_4008_0430_12_material">
+        <color rgba="0.615686 0.811765 0.929412 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0639313 -0.0896262 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part 2106_4008_0430_13 -->
+    <visual>
+      <origin xyz="0.139947 0.0275441 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+      <material name="2106_4008_0430_13_material">
+        <color rgba="0.615686 0.811765 0.929412 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.139947 0.0275441 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part 2106_4008_0430_14 -->
+    <visual>
+      <origin xyz="-0.0375974 -0.0151027 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+      <material name="2106_4008_0430_14_material">
+        <color rgba="0.615686 0.811765 0.929412 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0375974 -0.0151027 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part 2106_4008_0430_15 -->
+    <visual>
+      <origin xyz="0.0212845 0.0879181 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+      <material name="2106_4008_0430_15_material">
+        <color rgba="0.615686 0.811765 0.929412 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0212845 0.0879181 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part 2106_4008_0430_16 -->
+    <visual>
+      <origin xyz="0.0212845 -0.0739846 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+      <material name="2106_4008_0430_16_material">
+        <color rgba="0.615686 0.811765 0.929412 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0212845 -0.0739846 -0.066419" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/2106_4008_0430.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link mock_module -->
+  <link name="mock_module">
+    <inertial>
+      <origin xyz="-5.88685e-18 -3.21665e-18 -0.0215" rpy="0 0 0"/>
+      <mass value="0.0907185"/>
+      <inertia ixx="6.06618e-05" ixy="0" ixz="0" iyy="6.06618e-05" iyz="0" izz="0.000111569"/>
+    </inertial>
+    <!-- Part mock_module -->
+    <visual>
+      <origin xyz="0 0 -0.0088" rpy="3.14159 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/mock_module.stl"/>
+      </geometry>
+      <material name="mock_module_material">
+        <color rgba="0.615686 0.811765 0.929412 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.0088" rpy="3.14159 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/mock_module.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link wheel -->
+  <link name="wheel">
+    <inertial>
+      <origin xyz="9.33197e-12 5.97006e-12 -1.44764e-09" rpy="0 0 0"/>
+      <mass value="0.0907185"/>
+      <inertia ixx="2.94058e-05" ixy="1.67696e-14" ixz="2.0319e-14" iyy="2.94058e-05" iyz="2.51415e-14" izz="4.56135e-05"/>
+    </inertial>
+    <!-- Part wheel -->
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/wheel.stl"/>
+      </geometry>
+      <material name="wheel_material">
+        <color rgba="1 1 1 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/wheel.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Joint from mock_module to wheel -->
+  <joint name="rl_drive_wheel" type="continuous">
+    <origin xyz="0 0 -0.0215" rpy="-1.5708 -0 1.5708"/>
+    <parent link="mock_module"/>
+    <child link="wheel"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Joint from laser_cut_top_plate to mock_module -->
+  <joint name="rl_steering" type="revolute">
+    <origin xyz="-0.095885 -0.095885 0" rpy="0 -0 0"/>
+    <parent link="laser_cut_top_plate"/>
+    <child link="mock_module"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link mock_module_2 -->
+  <link name="mock_module_2">
+    <inertial>
+      <origin xyz="-5.88685e-18 -3.21665e-18 1.21431e-17" rpy="0 0 0"/>
+      <mass value="0.0907185"/>
+      <inertia ixx="6.06618e-05" ixy="0" ixz="0" iyy="6.06618e-05" iyz="0" izz="0.000111569"/>
+    </inertial>
+    <!-- Part mock_module_2 -->
+    <visual>
+      <origin xyz="0 0 0.0127" rpy="3.14159 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/mock_module.stl"/>
+      </geometry>
+      <material name="mock_module_2_material">
+        <color rgba="0.615686 0.811765 0.929412 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.0127" rpy="3.14159 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/mock_module.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link wheel_2 -->
+  <link name="wheel_2">
+    <inertial>
+      <origin xyz="9.33197e-12 5.97006e-12 -1.44764e-09" rpy="0 0 0"/>
+      <mass value="0.0907185"/>
+      <inertia ixx="2.94058e-05" ixy="1.67696e-14" ixz="2.0319e-14" iyy="2.94058e-05" iyz="2.51415e-14" izz="4.56135e-05"/>
+    </inertial>
+    <!-- Part wheel_2 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/wheel.stl"/>
+      </geometry>
+      <material name="wheel_2_material">
+        <color rgba="1 1 1 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/wheel.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Joint from mock_module_2 to wheel_2 -->
+  <joint name="rr_drive_wheel" type="continuous">
+    <origin xyz="-2.77556e-17 0 0" rpy="-1.5708 -0 1.5708"/>
+    <parent link="mock_module_2"/>
+    <child link="wheel_2"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Joint from laser_cut_top_plate to mock_module_2 -->
+  <joint name="rr_steering" type="revolute">
+    <origin xyz="0.095885 -0.095885 -0.0215" rpy="0 -0 0"/>
+    <parent link="laser_cut_top_plate"/>
+    <child link="mock_module_2"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link mock_module_3 -->
+  <link name="mock_module_3">
+    <inertial>
+      <origin xyz="-5.88685e-18 -3.21665e-18 1.21431e-17" rpy="0 0 0"/>
+      <mass value="0.0907185"/>
+      <inertia ixx="6.06618e-05" ixy="0" ixz="0" iyy="6.06618e-05" iyz="0" izz="0.000111569"/>
+    </inertial>
+    <!-- Part mock_module_3 -->
+    <visual>
+      <origin xyz="0 0 0.0127" rpy="3.14159 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/mock_module.stl"/>
+      </geometry>
+      <material name="mock_module_3_material">
+        <color rgba="0.615686 0.811765 0.929412 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.0127" rpy="3.14159 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/mock_module.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link wheel_3 -->
+  <link name="wheel_3">
+    <inertial>
+      <origin xyz="9.33197e-12 5.97006e-12 -1.44764e-09" rpy="0 0 0"/>
+      <mass value="0.0907185"/>
+      <inertia ixx="2.94058e-05" ixy="1.67696e-14" ixz="2.0319e-14" iyy="2.94058e-05" iyz="2.51415e-14" izz="4.56135e-05"/>
+    </inertial>
+    <!-- Part wheel_3 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/wheel.stl"/>
+      </geometry>
+      <material name="wheel_3_material">
+        <color rgba="1 1 1 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/wheel.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Joint from mock_module_3 to wheel_3 -->
+  <joint name="fl_drive_wheel" type="continuous">
+    <origin xyz="0 0 0" rpy="-1.5708 -0 1.5708"/>
+    <parent link="mock_module_3"/>
+    <child link="wheel_3"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Joint from laser_cut_top_plate to mock_module_3 -->
+  <joint name="fl_steering" type="revolute">
+    <origin xyz="-0.095885 0.095885 -0.0215" rpy="0 -0 0"/>
+    <parent link="laser_cut_top_plate"/>
+    <child link="mock_module_3"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link mock_module_4 -->
+  <link name="mock_module_4">
+    <inertial>
+      <origin xyz="-5.88685e-18 -3.21665e-18 1.21431e-17" rpy="0 0 0"/>
+      <mass value="0.0907185"/>
+      <inertia ixx="6.06618e-05" ixy="0" ixz="0" iyy="6.06618e-05" iyz="0" izz="0.000111569"/>
+    </inertial>
+    <!-- Part mock_module_4 -->
+    <visual>
+      <origin xyz="0 0 0.0127" rpy="3.14159 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/mock_module.stl"/>
+      </geometry>
+      <material name="mock_module_4_material">
+        <color rgba="0.615686 0.811765 0.929412 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.0127" rpy="3.14159 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets/mock_module.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link wheel_4 -->
+  <link name="wheel_4">
+    <inertial>
+      <origin xyz="9.33197e-12 5.97006e-12 -1.44764e-09" rpy="0 0 0"/>
+      <mass value="0.0907185"/>
+      <inertia ixx="2.94058e-05" ixy="1.67696e-14" ixz="2.0319e-14" iyy="2.94058e-05" iyz="2.51415e-14" izz="4.56135e-05"/>
+    </inertial>
+    <!-- Part wheel_4 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/wheel.stl"/>
+      </geometry>
+      <material name="wheel_4_material">
+        <color rgba="1 1 1 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/wheel.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Joint from mock_module_4 to wheel_4 -->
+  <joint name="fr_drive_wheel" type="continuous">
+    <origin xyz="0 0 0" rpy="-1.5708 -0 1.5708"/>
+    <parent link="mock_module_4"/>
+    <child link="wheel_4"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Joint from laser_cut_top_plate to mock_module_4 -->
+  <joint name="fr_steering" type="revolute">
+    <origin xyz="0.095885 0.095885 -0.0215" rpy="0 -0 0"/>
+    <parent link="laser_cut_top_plate"/>
+    <child link="mock_module_4"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+</robot>

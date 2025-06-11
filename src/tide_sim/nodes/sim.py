@@ -31,12 +31,10 @@ class SimulationNode(BaseNode):
     # PD control gains
     _max_force = 2.0  # Maximum force the motor can apply
 
-    # Joint state arrays - initialized in _startSimulation
-    _joint_indices_array = None  # Will be set to list of all joint indices
-    _joint_positions = None  # Will be set to list of None values
-    _joint_velocities = None  # Will be set to list of None values
-    _joint_efforts = None  # Will be set to list of None values
-    _joints_updated = False
+    # A queue of joint commands to execute in the next step,
+    # these will be applied in the order they are received
+    _joint_commands = []
+    
 
     def __init__(self, config=None):
         super().__init__(config=config)
@@ -68,52 +66,77 @@ class SimulationNode(BaseNode):
         # Start simulation in main thread
         self._startSimulation()
 
+    # This converts the joint state into a tuple of (control_mode, joint indices, position, velocity, effort)
+    def joint_state_to_sim(self, joint_state: JointState):
+        """Convert a JointState message into simulation control parameters.
+        
+        Args:
+            joint_state: The JointState message containing joint commands
+            
+        Returns:
+            Tuple containing:
+            - control_mode: The PyBullet control mode to use
+            - joint_indices: List of joint indices to control
+            - positions: List of target positions (or [])
+            - velocities: List of target velocities (or [])
+            - efforts: List of effort limits (or [])
+        """
+        # Get joint indices for each joint name
+        joint_indices = []
+        for name in joint_state.name:
+            if name not in self._joint_indices:
+                print(f"Warning: Joint {name} not found in robot")
+                continue
+            joint_indices.append(self._joint_indices[name])
+            
+        if not joint_indices:
+            print("No valid joints found in joint state")
+            return None, [], [], [], []
+            
+        # Determine control mode based on provided parameters
+        has_position = len(joint_state.position) > 0
+        has_velocity = len(joint_state.velocity) > 0
+        has_effort = len(joint_state.effort) > 0
+        
+        # Initialize control parameters as empty lists
+        positions = []
+        velocities = []
+        efforts = []
+        
+        # Map joint state values to control parameters
+        for i, idx in enumerate(joint_indices):
+            if has_position and i < len(joint_state.position):
+                positions.append(joint_state.position[i])
+            if has_velocity and i < len(joint_state.velocity):
+                velocities.append(joint_state.velocity[i])
+            if has_effort and i < len(joint_state.effort):
+                efforts.append(joint_state.effort[i])
+                
+        # Determine control mode
+        if has_position:
+            control_mode = p.POSITION_CONTROL
+        elif has_velocity:
+            control_mode = p.VELOCITY_CONTROL
+        elif has_effort:
+            control_mode = p.TORQUE_CONTROL
+        else:
+            print("No control parameters provided in joint state")
+            return None, [], [], [], []
+            
+        return control_mode, joint_indices, positions, velocities, efforts
+
     def _on_joint_state(self, msg):
-        print(f"Received joint state: {msg}")
         try:
             joint_state = JointState.model_validate(msg)
-            print(f"Received joint state: {joint_state}")
 
-            # Create arrays for each joint's state
-            positions = {}
-            velocities = {}
-            efforts = {}
-
-            # Map joint names to their states
-            for i, name in enumerate(joint_state.name):
-                if len(joint_state.position) > 0:
-                    # Wrap position to -π to π
-                    pos = joint_state.position[i]
-                    while pos > math.pi:
-                        pos -= 2 * math.pi
-                    while pos < -math.pi:
-                        pos += 2 * math.pi
-                    positions[name] = pos
-                if len(joint_state.velocity) > 0:
-                    velocities[name] = joint_state.velocity[i]
-                if len(joint_state.effort) > 0:
-                    efforts[name] = joint_state.effort[i]
-
-            print("Parsed joint states:")
-            print(f"  Positions: {positions}")
-            print(f"  Velocities: {velocities}")
-            print(f"  Efforts: {efforts}")
-
-            # Update joint state arrays
-            for name, idx in self._joint_indices.items():
-                if name in positions:
-                    self._joint_positions[idx] = positions[name]
-                if name in velocities:
-                    self._joint_velocities[idx] = velocities[name]
-                if name in efforts:
-                    self._joint_efforts[idx] = efforts[name]
-
-            self._joints_updated = True
+            # Convert joint state to simulation parameters
+            # Add them to the control queue
+            self._joint_commands.append(self.joint_state_to_sim(joint_state))
+            
 
         except Exception as e:
             print(f"Error parsing joint state: {e}")
             import traceback
-
             traceback.print_exc()
 
     def _signal_handler(self, signum, frame):
@@ -241,30 +264,28 @@ class SimulationNode(BaseNode):
             pos, orn = p.getBasePositionAndOrientation(
                 self._robot_id, physicsClientId=self._state_client
             )
-            # print(f"Robot position: {pos}, orientation: {orn}")
 
-            # Apply joint states if we have updates
-            if self._joints_updated and self._joint_indices_array:
-                print(
-                    f"Applying joint states to {len(self._joint_indices_array)} joints"
-                )
-                self._joints_updated = False
-
-                # Due to a bug in pybullet, if you care about joint velocity
-                # caps you need to set them individually
-
-                for i in range(len(self._joint_indices_array)):
-                    if self._joint_positions[i] is None:
-                        continue
-                    p.setJointMotorControl2(
-                        bodyIndex=self._robot_id,
-                        jointIndex=self._joint_indices_array[i],
-                        controlMode=p.POSITION_CONTROL,
-                        targetPosition=self._joint_positions[i],
-                        force=self._max_force,
-                        maxVelocity=60,
-                        physicsClientId=self._state_client,
-                    )
+            for command in self._joint_commands:
+                control_mode, joint_indices, positions, velocities, efforts = command
+                for i, idx in enumerate(joint_indices):
+                    # Build control parameters based on what's available
+                    control_params = {
+                        "bodyIndex": self._robot_id,
+                        "jointIndex": idx,
+                        "controlMode": control_mode,
+                        "physicsClientId": self._state_client,
+                    }
+                    
+                    # Only add parameters if they have values
+                    if i < len(positions):
+                        control_params["targetPosition"] = positions[i]
+                    if i < len(velocities):
+                        control_params["targetVelocity"] = velocities[i]
+                    if i < len(efforts):
+                        control_params["force"] = efforts[i]
+                        
+                    p.setJointMotorControl2(**control_params)
+            self._joint_commands = []
 
         except Exception as e:
             print(f"Error in step: {e}")

@@ -1,0 +1,16 @@
+session:
+  mode: peer  # Mesh network
+
+nodes:
+  
+  - type: nodes.joint_state_publisher.JointStatePublisher
+    params:
+      robot_id: "simbot"
+      group: "simulation"
+      hz: 1
+
+  - type: tide_sim.SimulationNode
+    params:
+      robot_id: "simbot"
+      headless: false
+      urdf_path: "assets/simulation/robot.urdf"
